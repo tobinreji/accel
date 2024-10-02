@@ -25,10 +25,10 @@
     function detectStep(currentAcceleration, previousAcceleration) {
       let deltaX = Math.abs(currentAcceleration.x - previousAcceleration.x);
       let deltaY = Math.abs(currentAcceleration.y - previousAcceleration.y);
-      let deltaZ = Math.abs(currentAcceleration.z - previousAcceleration.z);
+      //let deltaZ = Math.abs(currentAcceleration.z - previousAcceleration.z);
       
       // Sum of changes in all axes
-      let totalDelta = deltaX + deltaY + deltaZ;
+      let totalDelta = deltaX + deltaY;
       
       // If movement is above the threshold, count it as a step
       if (totalDelta > stepThreshold) {
