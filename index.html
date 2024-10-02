@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Step Counter</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #steps, #distance { font-size: 24px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <h1>Step Counter using Accelerometer</h1>
+  <div id="steps">Steps: 0</div>
+  <div id="distance">Distance: 0.00 m</div>
+
+  <script>
+    let stepCount = 0;
+    let previousAcceleration = { x: 0, y: 0, z: 0 };
+    let stepThreshold = 1.2;  // Adjust based on step sensitivity
+    const averageStepLength = 0.78;  // meters, can be personalized per user
+
+    // Function to detect significant movement in accelerometer data
+    function detectStep(currentAcceleration, previousAcceleration) {
+      let deltaX = Math.abs(currentAcceleration.x - previousAcceleration.x);
+      let deltaY = Math.abs(currentAcceleration.y - previousAcceleration.y);
+      let deltaZ = Math.abs(currentAcceleration.z - previousAcceleration.z);
+      
+      // Sum of changes in all axes
+      let totalDelta = deltaX + deltaY + deltaZ;
+      
+      // If movement is above the threshold, count it as a step
+      if (totalDelta > stepThreshold) {
+        return true;
+      }
+      return false;
+    }
+
+    // DeviceMotion event listener
+    if (window.DeviceMotionEvent) {
+      window.addEventListener('devicemotion', function(event) {
+        let acceleration = event.accelerationIncludingGravity;
+
+        // Check if a step is detected
+        if (detectStep(acceleration, previousAcceleration)) {
+          stepCount++;
+          document.getElementById('steps').textContent = `Steps: ${stepCount}`;
+          
+          // Calculate and display the distance traveled
+          let distance = stepCount * averageStepLength;
+          document.getElementById('distance').textContent = `Distance: ${distance.toFixed(2)} m`;
+        }
+
+        // Update previous acceleration
+        previousAcceleration = acceleration;
+      });
+    } else {
+      alert("DeviceMotion API not supported on this device.");
+    }
+  </script>
+</body>
+</html>
+.
