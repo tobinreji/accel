@@ -18,7 +18,7 @@
   <script>
     let stepCount = 0;
     let previousAcceleration = { x: 0, y: 0, z: 0 };
-    let stepThreshold = 0.8;  // Adjust based on step sensitivity
+    let stepThreshold = 1.2;  // Adjust based on step sensitivity
     const averageStepLength = 0.2;  // meters, can be personalized per user
 
     // Function to detect significant movement in accelerometer data
@@ -28,7 +28,7 @@
       //let deltaZ = Math.abs(currentAcceleration.z - previousAcceleration.z);
       
       // Sum of changes in all axes
-      let totalDelta = deltaY;
+      let totalDelta = deltaY + 0.5;
       
       // If movement is above the threshold, count it as a step
       if (totalDelta > stepThreshold) {
