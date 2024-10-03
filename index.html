@@ -19,7 +19,7 @@
     let stepCount = 0;
     let previousAcceleration = { x: 0, y: 0, z: 0 };
     let stepThreshold = 1.2;  // Adjust based on step sensitivity
-    const averageStepLength = 0.2;  // meters, can be personalized per user
+    const averageStepLength = 0.25;  // meters, can be personalized per user
 
     // Function to detect significant movement in accelerometer data
     function detectStep(currentAcceleration, previousAcceleration) {
